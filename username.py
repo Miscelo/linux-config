@@ -1,4 +1,7 @@
-#!/usr/bin/env python3
+i#!/usr/bin/env python3
+
+# A simple script to create a valid username.
+
 
 def checkusername(username):
         assert type(username) == str, "ERROR: Username must be letters or numbers."
