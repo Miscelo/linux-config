@@ -1,0 +1,33 @@
+# *** NETFILTER - GUIA ***
+#Info: Deshabilitar otros cortafuegos si estan activos.
+
+# 1. Instalar paquetes netfilter y el demonio firwalld
+sudo apt install nftables firewalld
+
+# 2. Arrancar el demonio firwalld si no está activo ya.
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+
+# 3. Configuración del archivo de configuración. 
+#    Añadir reglas personales, info en '$man nft' o ejemplos en /us/share/doc/nftables/examples/
+sudo vim /etc/nftables.conf
+
+# 4. Aplicar nuevas reglas
+sudo nft -f /etc/nftables.conf
+
+# 5. Configurar el demonio firewalld
+sudo vim /etc/firwalld/firewalld.conf
+#FirewalBackend=nftables
+
+# 6. Restart del demonio firewalld
+sudo systemctl restart firewalld
+
+# 7. Comprobar status del demonio y intentar acceder a recursos bloqueados.
+sudo systemctl status firewalld
+
+
+# comandos importantes para post configuración  familias=[bridge, arp, ip, ip6, inet]
+# $nft add table <familia> <tabla>
+# $nft list tables
+# $nft delete table <familia> <tabla>
+# $nft flush table <familia> <tabla>
